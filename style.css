@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+h1 {
+    text-align: center;
+}
+
+#idform {
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    width: 90vw;
+    margin: 1rem auto;
+}
+
+input {
+    padding: 0.5rem 1rem;
+}
+
+#editor-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+#editor-fields input {
+    font-size: 1.75rem;
+    border: none;
+    white-space: normal;
+}
+
+input:focus {
+    outline: none;
+}
+
+#form-button {
+    padding: 0.7rem 1.25rem;
+    background-color: aqua;
+    font-weight: bold;
+    border: none;
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+#form-button:hover {
+    opacity: 0.75;
+}
