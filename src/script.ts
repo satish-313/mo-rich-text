@@ -1,14 +1,6 @@
-let inputCount = 1;
-
 document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname === "/editor.html") {
-        const cinput = document.createElement("input");
-        let count = inputCount++;
-        cinput.setAttribute("type", "text");
-        cinput.setAttribute("placeholder", "title");
-        cinput.setAttribute("data-input-idx", count.toString());
-        editor.appendChild(cinput);
-        cinput.focus();
+        addInput();
     }
 });
 
@@ -18,33 +10,45 @@ form.addEventListener("submit", (e) => {
 });
 
 let editor = document.getElementById("editor-fields")!;
-editor.addEventListener("keydown", (e) => {
+editor.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
-        const nextEl = `<input type="text" placeholder="write" data-input-idx=${inputCount++} />`;
-        const cur = document.activeElement as HTMLInputElement;
-        cur.insertAdjacentHTML("afterend", nextEl);
-        const next = cur.nextElementSibling as HTMLInputElement | null;
-        if (next) next.focus();
+        e.preventDefault();
+        const curEle = document.activeElement;
+        if (curEle === null) return;
+        const parEle = curEle.parentNode as HTMLElement;
+        addInput(parEle);
         return;
     }
 
     if (e.key === "Backspace") {
-        const curEle = document.activeElement;
+        const curEle = document.activeElement as HTMLInputElement;
         if (curEle === null) return;
-
-        if (curEle.tagName.toLowerCase() === "input") {
-            const cur = curEle as HTMLInputElement;
-            const parNode = cur.parentNode!;
-            const prevNode = cur.previousSibling! as HTMLInputElement;
-            if (cur.value.length <= 0 && parNode.children.length > 1) {
-                parNode.removeChild(cur);
-                prevNode.focus();
-            }
+        const parEle = curEle.parentNode as HTMLElement;
+        const prevEle =
+            parEle.previousElementSibling as HTMLInputElement | null;
+        if (prevEle === null) return;
+        const prevTa = prevEle.querySelector("textarea");
+        if (prevTa === null) return;
+        if (curEle.value.length <= 0 && editor.firstElementChild != parEle) {
+            editor.removeChild(parEle);
+            e.preventDefault()
+            prevTa.focus();
         }
     }
 });
 
-const s = document.getElementById("smc") as HTMLInputElement
-s.addEventListener("change",(e) => {
-    console.log(e.target)
-})  
+function addInput(parent?: null | HTMLElement) {
+    const div = document.createElement("div");
+    const ta = document.createElement("textarea");
+    div.appendChild(ta);
+    ta.rows = 1;
+
+    ta.addEventListener("input", function () {
+        this.style.height = this.scrollHeight + "px";
+    });
+
+    if (parent != null) {
+        parent.insertAdjacentElement("afterend", div);
+    } else editor.appendChild(div);
+    ta.focus();
+}

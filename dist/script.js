@@ -1,14 +1,7 @@
 "use strict";
-let inputCount = 1;
 document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname === "/editor.html") {
-        const cinput = document.createElement("input");
-        let count = inputCount++;
-        cinput.setAttribute("type", "text");
-        cinput.setAttribute("placeholder", "title");
-        cinput.setAttribute("data-input-idx", count.toString());
-        editor.appendChild(cinput);
-        cinput.focus();
+        addInput();
     }
 });
 let form = document.getElementById("idform");
@@ -16,32 +9,46 @@ form.addEventListener("submit", (e) => {
     e.preventDefault();
 });
 let editor = document.getElementById("editor-fields");
-editor.addEventListener("keydown", (e) => {
+editor.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
-        const nextEl = `<input type="text" placeholder="write" data-input-idx=${inputCount++} />`;
-        const cur = document.activeElement;
-        cur.insertAdjacentHTML("afterend", nextEl);
-        const next = cur.nextElementSibling;
-        if (next)
-            next.focus();
+        e.preventDefault();
+        const curEle = document.activeElement;
+        if (curEle === null)
+            return;
+        const parEle = curEle.parentNode;
+        addInput(parEle);
         return;
     }
     if (e.key === "Backspace") {
         const curEle = document.activeElement;
         if (curEle === null)
             return;
-        if (curEle.tagName.toLowerCase() === "input") {
-            const cur = curEle;
-            const parNode = cur.parentNode;
-            const prevNode = cur.previousSibling;
-            if (cur.value.length <= 0 && parNode.children.length > 1) {
-                parNode.removeChild(cur);
-                prevNode.focus();
-            }
+        const parEle = curEle.parentNode;
+        const prevEle = parEle.previousElementSibling;
+        if (prevEle === null)
+            return;
+        const prevTa = prevEle.querySelector("textarea");
+        if (prevTa === null)
+            return;
+        if (curEle.value.length <= 0 && editor.firstElementChild != parEle) {
+            editor.removeChild(parEle);
+            e.preventDefault();
+            prevTa.focus();
         }
     }
 });
-const s = document.getElementById("smc");
-s.addEventListener("change", (e) => {
-    console.log(e.target);
-});
+function addInput(parent) {
+    const div = document.createElement("div");
+    const ta = document.createElement("textarea");
+    div.appendChild(ta);
+    ta.rows = 1;
+    ta.addEventListener("input", function () {
+        this.style.height = this.scrollHeight + "px";
+    });
+    if (parent != null) {
+        parent.insertAdjacentElement("afterend", div);
+    }
+    else
+        editor.appendChild(div);
+    ta.focus();
+}
