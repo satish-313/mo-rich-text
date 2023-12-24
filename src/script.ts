@@ -21,34 +21,43 @@ editor.addEventListener("keydown", function (e) {
     }
 
     if (e.key === "Backspace") {
-        const curEle = document.activeElement as HTMLInputElement;
+        const curEle = document.activeElement as HTMLParagraphElement;
         if (curEle === null) return;
         const parEle = curEle.parentNode as HTMLElement;
-        const prevEle =
-            parEle.previousElementSibling as HTMLInputElement | null;
+        const prevEle = parEle.previousElementSibling as HTMLElement | null;
         if (prevEle === null) return;
-        const prevTa = prevEle.querySelector("textarea");
-        if (prevTa === null) return;
-        if (curEle.value.length <= 0 && editor.firstElementChild != parEle) {
+        const prevp = prevEle.querySelector("p");
+        if (prevp === null) return;
+        if (
+            editor.firstElementChild != parEle &&
+            curEle.innerText.length <= 0
+        ) {
             editor.removeChild(parEle);
-            e.preventDefault()
-            prevTa.focus();
+            let range = document.createRange();
+            range.selectNodeContents(prevp);
+            range.collapse(false);
+
+            let selection = window.getSelection();
+            if (selection === null) return;
+            selection.removeAllRanges();
+            selection.addRange(range);
+            e.preventDefault();
+            prevp.focus();
         }
     }
 });
 
 function addInput(parent?: null | HTMLElement) {
     const div = document.createElement("div");
-    const ta = document.createElement("textarea");
-    div.appendChild(ta);
-    ta.rows = 1;
-
-    ta.addEventListener("input", function () {
-        this.style.height = this.scrollHeight + "px";
+    const p = document.createElement("p");
+    p.setAttribute("contenteditable", "true");
+    div.appendChild(p);
+    p.addEventListener("mouseup", function () {
+        
     });
 
     if (parent != null) {
         parent.insertAdjacentElement("afterend", div);
     } else editor.appendChild(div);
-    ta.focus();
+    p.focus();
 }

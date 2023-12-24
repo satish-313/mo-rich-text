@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>onselect Event</title>
+    </head>
+    <body>
+        <p
+            id="editableParagraph"
+            contenteditable="true"
+            onmouseup="handleSelection()"
+        >
+            This is a contenteditable paragraph. Select some text in this
+            paragraph.
+        </p>
+
+        <script>
+            function handleSelection() {
+                var selectedText = getSelectedText();
+                console.log("Selected text: " + selectedText);
+            }
+
+            function getSelectedText() {
+                var selection = window.getSelection();
+                return selection.toString();
+            }
+        </script>
+    </body>
+</html>
+<!-- <input
+type="text"
+
+placeholder="Select text in this input"
+/>
+<p onselect="handleSelection()" id="editableParagraph" contenteditable="true">
+This is an editable paragraph. Select some text and click the button
+to make it bold.
+</p>
+<script>
+function handleSelection() {
+    var selectedText = getSelectedText();
+    console.log("Selected text: " + selectedText);
+}
+
+function getSelectedText() {
+    var selectedText = "";
+    console.log(window.getSelection())
+    if (window.getSelection) {
+        selectedText = window.getSelection().toString();
+    } else if (
+        document.selection &&
+        document.selection.type != "Control"
+    ) {
+        selectedText = document.selection.createRange().text;
+    }
+    return selectedText;
+}
+</script> -->

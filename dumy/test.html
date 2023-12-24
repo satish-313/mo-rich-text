@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Make Selected Text Bold</title>
+        <style>
+            #editableParagraph {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin-top: 5rem;
+            }
+            #tooltip {
+                display: none;
+                background-color: aqua;
+                padding: 0.75rem;
+                position: fixed;
+                z-index: 20;
+            }
+            #overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0);
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+        <p
+            id="editableParagraph"
+            onmouseup="handleSelection()"
+            contenteditable="true"
+        >
+            This is an editable paragraph. Select some text and click the button
+            to make it bold.
+        </p>
+        <div id="tooltip">
+            <button onclick="makeChange('b')">Bold</button>
+            <button onclick="makeChange('em')">Italic</button>
+            <button onclick="makeChange('u')">underline</button>
+        </div>
+        <div id="overlay"></div>
+
+        <script>
+            let overlay = document.getElementById("overlay");
+            var editableParagraph =
+                document.getElementById("editableParagraph");
+
+            editableParagraph.addEventListener("input", function () {
+                var selection = window.getSelection();
+                var cursorPosition = selection.focusOffset;
+                console.log("hello")
+                var textBeforeCursor = editableParagraph.textContent.substring(
+                    0,
+                    cursorPosition
+                );
+                var textAfterCursor =
+                    editableParagraph.textContent.substring(cursorPosition);
+
+                console.log("Text before cursor:", textBeforeCursor);
+                console.log("Text after cursor:", textAfterCursor);
+            });
+            function handleSelection() {
+                var selectedText = getSelectedText();
+                if (selectedText.length > 0) {
+                    let tooltip = document.getElementById("tooltip");
+                    tooltip.style.display = "inline";
+                    overlay.style.display = "block";
+                }
+            }
+
+            function getSelectedText() {
+                var selection = window.getSelection();
+                return selection.toString();
+            }
+
+            overlay.addEventListener("click", function () {
+                let tooltip = document.getElementById("tooltip");
+                tooltip.style.display = "none";
+                this.style.display = "none";
+                console.log(tooltip);
+            });
+            function makeChange(tg) {
+                var selection = window.getSelection();
+                let editableParagraph = selection.anchorNode;
+                console.log(selection.rangeCount);
+                console.log(editableParagraph.contains(selection.anchorNode));
+                if (
+                    selection.rangeCount > 0 &&
+                    editableParagraph.contains(selection.anchorNode)
+                ) {
+                    var range = selection.getRangeAt(0);
+                    var changeEl = document.createElement(tg);
+                    changeEl.appendChild(range.extractContents());
+                    range.insertNode(changeEl);
+                }
+            }
+        </script>
+    </body>
+</html>

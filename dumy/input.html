@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Text Before and After Cursor in Contenteditable Paragraph</title>
+        <style>
+            .editable-paragraph {
+                border: 1px solid #ccc;
+                padding: 10px;
+                min-height: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <p
+            id="editableParagraph"
+            class="editable-paragraph"
+            contenteditable="true"
+        >
+            This is some editable text.
+        </p>
+
+        <script>
+            var editableParagraph =
+                document.getElementById("editableParagraph");
+
+            editableParagraph.addEventListener("input", function () {
+                var selection = window.getSelection();
+                var cursorPosition = selection.focusOffset;
+                console.log(cursorPosition)
+                var textBeforeCursor = editableParagraph.textContent.substring(
+                    0,
+                    cursorPosition
+                );
+                var textAfterCursor =
+                    editableParagraph.textContent.substring(cursorPosition);
+
+                console.log("Text before cursor:", textBeforeCursor);
+                console.log("Text after cursor:", textAfterCursor);
+            });
+        </script>
+    </body>
+</html>
