@@ -17,6 +17,7 @@ h1 {
 #editor-fields {
     display: flex;
     flex-direction: column;
+    margin-top: 2rem;
 }
 #editor-fields > *:not(:first-child) {
     margin-top: 15px;
@@ -30,16 +31,38 @@ h1 {
     outline: none;
 }
 
-#form-button {
-    padding: 0.7rem 1.25rem;
-    background-color: aqua;
-    font-weight: bold;
-    border: none;
-    margin-top: 2rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
+#layover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    display: none;
 }
 
-#form-button:hover {
-    opacity: 0.75;
+#dbtn {
+    background-color: #333;
+    display: none;
+    width: max-content;
+    border-radius: 2px;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    transform: translateY(calc(-100% - 10px)) translateX(-50%);
+}
+#dbtn::before {
+    content: "";
+    border: 7px solid transparent;
+    border-top-width: 15px;
+    border-top-color: #333;
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#dbtn button {
+    padding: 7px;
+    margin: 7px;
+    cursor: pointer;
 }

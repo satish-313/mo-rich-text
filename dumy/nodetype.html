@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Parent's InnerText Before Child</title>
+</head>
+<body>
+
+  <div id="parentElement">
+    This is some text before the <span id="childElement">child element</span>. This is more text after the child element.
+  </div>
+
+  <script>
+    function getParentInnerTextBeforeChild(parentId, childId) {
+      var parentElement = document.getElementById(parentId);
+      var childElement = document.getElementById(childId);
+
+      if (!parentElement || !childElement) {
+        console.log("Parent or child element not found.");
+        return;
+      }
+
+      var textBeforeChild = "";
+      var currentNode = parentElement.firstChild;
+
+      // Traverse the parent's child nodes
+      while (currentNode !== childElement) {
+        if (currentNode.nodeType === 3) {
+          // If it's a text node, add its content to the result
+          textBeforeChild += currentNode.nodeValue;
+        } else if (currentNode.nodeType === 1) {
+          // If it's an element node, recursively traverse its children
+          textBeforeChild += getParentInnerTextBeforeChild(currentNode.id, childId);
+        }
+
+        currentNode = currentNode.nextSibling;
+      }
+
+      return textBeforeChild;
+    }
+
+    // Example usage
+    var parentId = "parentElement";
+    var childId = "childElement";
+    var result = getParentInnerTextBeforeChild(parentId, childId);
+    console.log(result);
+  </script>
+
+</body>
+</html>
