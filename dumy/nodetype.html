@@ -1,51 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Get Parent's InnerText Before Child</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Get Parent's InnerText Before Child</title>
+    </head>
+    <body>
+        <!-- <div id="parent">
+            <h3>Hi i am <i>ok</i> satish kumar pradhan</h3>
+            <p class="art">
+                creating a side program to check the nodetype and sort them in
+                order <b>ar</b>
+            </p>
+            <br />
+            <span> It looking great </span>
+        </div> -->
+        <div id="exampleElement">
+            <p data-hello="hello">This is <em>some</em> sample text.</p>
+        </div>
 
-  <div id="parentElement">
-    This is some text before the <span id="childElement">child element</span>. This is more text after the child element.
-  </div>
+        <script>
+            // let parentNode = document.getElementById("parent");
+            // let cur = parentNode.firstChild;
+            // let last = parentNode.lastChild;
+            // while (cur != last) {
+            //     console.log(cur);
+            //     cur = cur.nextSibling;
+            // }
+            // Get the target element by its ID
+            var targetElement = document.getElementById("exampleElement");
 
-  <script>
-    function getParentInnerTextBeforeChild(parentId, childId) {
-      var parentElement = document.getElementById(parentId);
-      var childElement = document.getElementById(childId);
+            // Create a NodeIterator
+            var nodeIterator = document.createNodeIterator(
+                targetElement,
+                NodeFilter.SHOW_TEXT,
+            );
 
-      if (!parentElement || !childElement) {
-        console.log("Parent or child element not found.");
-        return;
-      }
+            // Iterate over text nodes and log their individual content
+            var currentNode;
+            while ((currentNode = nodeIterator.nextNode())) {
+                console.log(currentNode);
+            }
+        </script>
+    </body>
+</html>
+<!-- function getParentInnerTextBeforeChild(parentId, childId) {
+  var parentElement = document.getElementById(parentId);
+  var childElement = document.getElementById(childId);
 
-      var textBeforeChild = "";
-      var currentNode = parentElement.firstChild;
+  if (!parentElement || !childElement) {
+    console.log("Parent or child element not found.");
+    return;
+  }
 
-      // Traverse the parent's child nodes
-      while (currentNode !== childElement) {
-        if (currentNode.nodeType === 3) {
-          // If it's a text node, add its content to the result
-          textBeforeChild += currentNode.nodeValue;
-        } else if (currentNode.nodeType === 1) {
-          // If it's an element node, recursively traverse its children
-          textBeforeChild += getParentInnerTextBeforeChild(currentNode.id, childId);
-        }
-
-        currentNode = currentNode.nextSibling;
-      }
-
-      return textBeforeChild;
+  var textBeforeChild = "";
+  var currentNode = parentElement.firstChild;
+  console.log(currentNode)
+  // Traverse the parent's child nodes
+  while (currentNode !== childElement) {
+    if (currentNode.nodeType === 3) {
+      console.log("nodetype 3 ", currentNode)
+      // If it's a text node, add its content to the result
+      textBeforeChild += currentNode.nodeValue;
+    } else if (currentNode.nodeType === 1) {
+      console.log("node type 1",currentNode)
+      // If it's an element node, recursively traverse its children
+      textBeforeChild += getParentInnerTextBeforeChild(currentNode.id, childId);
     }
 
-    // Example usage
-    var parentId = "parentElement";
-    var childId = "childElement";
-    var result = getParentInnerTextBeforeChild(parentId, childId);
-    console.log(result);
-  </script>
+    currentNode = currentNode.nextSibling;
+  }
 
-</body>
-</html>
+  return textBeforeChild;
+}
+
+// Example usage
+var parentId = "parentElement";
+var childId = "childElement";
+var result = getParentInnerTextBeforeChild(parentId, childId);
+console.log(result); -->

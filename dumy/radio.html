@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>radio</title>
+    </head>
+    <body>
+        <p>Select your age</p>
+        <form id="radio-form">
+            <input type="radio" id="age1" name="age" value="20" />
+            <label for="age1">20</label>
+            <input type="radio" name="age" id="age2" value="30" />
+            <label for="age2">30</label>
+            <input type="radio" id="age3" name="age" value="25" />
+            <label for="age3">25</label>
+            <input type="submit" />
+        </form>
+    </body>
+    <script>
+        let radioform = document.getElementById("radio-form");
+        radioform.addEventListener("submit", function (e) {
+            e.preventDefault();
+            let sv = document.querySelector('input[name="age"]:checked');
+            console.log(sv.value);
+        });
+        var radioButtons = document.querySelectorAll('input[name="age"]');
+        radioButtons.forEach(function (radioButton) {
+            radioButton.addEventListener("change", function () {
+                // Log the selected value when a radio button changes
+                console.log("Selected Value:", this.value);
+            });
+        });
+    </script>
+</html>

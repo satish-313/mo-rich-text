@@ -17,10 +17,10 @@ h1 {
 #editor-fields {
     display: flex;
     flex-direction: column;
-    margin-top: 2rem;
+    position: relative;
 }
 #editor-fields > *:not(:first-child) {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 #editor-fields p {
@@ -65,4 +65,17 @@ h1 {
     padding: 7px;
     margin: 7px;
     cursor: pointer;
+}
+
+.toogle{ 
+    position: absolute;
+    left:-3rem;
+    border: 1px solid black;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

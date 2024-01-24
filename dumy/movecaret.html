@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Move Caret to End</title>
+        <style>
+            #editable {
+                border: 1px solid #ccc;
+                padding: 10px;
+                min-height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="editable" contenteditable="true">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus
+            libero beatae, voluptatum atque harum facilis exercitationem?
+            Cupiditate, accusantium et nihil quae perferendis reiciendis dolores
+            officiis quaerat sed quis delectus aliquam, porro dolor in fuga,
+            nostrum deleniti. Animi debitis amet voluptate obcaecati totam eum,
+            voluptatibus autem dicta modi nobis quae voluptatem?This is an
+            editable paragraph. Click the button to move the caret to the end.
+        </div>
+        <button onclick="moveCaretToEnd()">Move Caret to End</button>
+        <button onclick="cpos()">caretPosition</button>
+        <script>
+            function cpos() {
+                let s = document.getSelection();
+                console.log(s.focusOffset);
+            }
+            function getTextNodes(node) {
+                var textNodes = [];
+                var walker = document.createTreeWalker(
+                    node,
+                    NodeFilter.SHOW_TEXT,
+                    null,
+                    false
+                );
+
+                while (walker.nextNode()) {
+                    textNodes.push(walker.currentNode);
+                }
+
+                return textNodes;
+            }
+            function moveCaretToEnd() {
+                var editableDiv = document.getElementById("editable");
+                var textNodes = getTextNodes(editableDiv);
+                console.log("len", editableDiv.innerText.length);
+                console.log(textNodes);
+                if (textNodes.length > 0) {
+                    var lastTextNode = textNodes[textNodes.length - 1];
+                    var lastTextNodeContent = lastTextNode.nodeValue.replace(
+                        /\n/g,
+                        ""
+                    ); // Remove newline characters
+
+                    console.log("last text", lastTextNode);
+                    // Create a range and set its end to the end of the last text node
+                    var range = document.createRange();
+                    range.setStart(lastTextNode, lastTextNodeContent.length);
+                    range.collapse(true);
+
+                    // Get the selection and remove existing selections
+                    var selection = window.getSelection();
+                    selection.removeAllRanges();
+
+                    // Add the new range to the selection
+                    selection.addRange(range);
+
+                    // Focus on the editable element
+                    editableDiv.focus();
+                }
+            }
+        </script>
+    </body>
+</html>
