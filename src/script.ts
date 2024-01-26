@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 type MyNode = Node & {
-    length : number;
+    length: number;
 };
 
 let textChange = document.getElementById("dbtn");
@@ -35,8 +35,9 @@ for (let i = 0; i < tcChild.length; i++) {
 let lyover = document.getElementById("layover");
 lyover?.addEventListener("click", function () {
     this.style.display = "none";
+    document.getSelection()?.removeAllRanges();
     if (textChange) {
-        window.getSelection()?.removeAllRanges();
+        document.getSelection()?.removeAllRanges();
         textChange.style.display = "none";
     }
 });
@@ -47,6 +48,7 @@ function addInput(parent?: null | HTMLElement, value?: undefined | string) {
     const div = document.createElement("div");
     const p = document.createElement("p");
     p.setAttribute("contenteditable", "true");
+
     p.addEventListener("mouseup", function () {
         let selection = window.getSelection();
         if (selection === null) return;
@@ -64,21 +66,20 @@ function addInput(parent?: null | HTMLElement, value?: undefined | string) {
             lyover.style.display = "block";
         }
     });
+
     p.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
-            e.preventDefault();
             const parEle = this.parentNode as HTMLElement;
-            let selection = document.getSelection();
-            if (!selection) return;
-            let cursorPosition = selection.focusOffset;
-            console.log("cursorPosition", cursorPosition);
+            let cursorPosition = getCaretCharacterOffsetWithin(this);
+
             let textBeforeCursor = this.textContent!.substring(
                 0,
                 cursorPosition
             );
             let textAfterCursor = this.textContent!.substring(cursorPosition);
-            this.innerText = textBeforeCursor;
+            this.innerHTML = textBeforeCursor;
             addInput(parEle, textAfterCursor);
+            e.preventDefault();
             return;
         }
 
@@ -87,23 +88,25 @@ function addInput(parent?: null | HTMLElement, value?: undefined | string) {
             const prevEle = parEle.previousElementSibling as HTMLElement | null;
             if (prevEle === null) return;
             const prevp = prevEle.querySelector("p")!;
-            let textNodes = getTextNodes(prevp);
-
             if (prevp === null) return;
             if (
                 editor.firstElementChild != parEle &&
                 this.innerText.length <= 0
             ) {
                 e.preventDefault();
-                var lastTextNode = textNodes[textNodes.length - 1] as MyNode;
+                if (prevp.innerText.length !== 0) {
+                    let textNodes = document
+                        .createTreeWalker(prevp, NodeFilter.SHOW_TEXT, null)
+                        .nextNode() as MyNode;
+
+                    let range = document.createRange();
+                    range.setStart(textNodes, textNodes.length);
+                    range.collapse(true);
+                    let sele = document.getSelection();
+                    sele?.removeAllRanges();
+                    sele?.addRange(range);
+                }
                 editor.removeChild(parEle);
-                let range = document.createRange();
-                range.setStart(lastTextNode, lastTextNode.length);
-                range.collapse(true);
-                console.log(range);
-                let sele = document.getSelection();
-                sele?.removeAllRanges();
-                sele?.addRange(range);
                 prevp.focus();
             }
             return;
@@ -120,24 +123,32 @@ function addInput(parent?: null | HTMLElement, value?: undefined | string) {
         if (!value) {
             parent.insertAdjacentElement("afterend", div);
         } else {
-            p.innerText = value;
+            p.innerHTML = value;
             parent.insertAdjacentElement("afterend", div);
         }
     } else {
-        p.innerText =
+        p.innerHTML =
             "It is a long established fact t of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to s ";
         editor.appendChild(div);
     }
     p.focus();
 }
+function getCaretCharacterOffsetWithin(element: Node) {
+    let caretOffset = 0;
+    let sel;
+    let range;
 
-function getTextNodes(node: HTMLParagraphElement) {
-    var textNodes = [];
-    var walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null);
-
-    while (walker.nextNode()) {
-        textNodes.push(walker.currentNode);
+    if (window.getSelection) {
+        sel = window.getSelection();
+        if (sel === null) return 0;
+        if (sel.rangeCount > 0) {
+            range = sel.getRangeAt(0);
+            let preCaretRange = range.cloneRange();
+            preCaretRange.selectNodeContents(element);
+            preCaretRange.setEnd(range.endContainer, range.endOffset);
+            caretOffset = preCaretRange.toString().length;
+        }
     }
 
-    return textNodes;
+    return caretOffset;
 }

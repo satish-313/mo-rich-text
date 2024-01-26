@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caret Position in P Tag</title>
+  <style>
+    p {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<p contenteditable="true" id="editable" oninput="getCaretPosition()">It is a <b>long</b> established fact of a <u>page</u> when looking at its layout. The point of using Lorem <em>Ipsum</em> is that it has a more-or-less normal distribution of letters, as opposed to s </p>
+
+<script>
+  function getCaretPosition() {
+    var editable = document.getElementById('editable');
+    var caretPosition = getCaretCharacterOffsetWithin(editable);
+
+    console.log("Caret position: " + caretPosition);
+  }
+
+  function getCaretCharacterOffsetWithin(element) {
+    var caretOffset = 0;
+    var sel;
+    var range;
+
+    if (window.getSelection) {
+      sel = window.getSelection();
+      if (sel.rangeCount > 0) {
+        range = sel.getRangeAt(0);
+        var preCaretRange = range.cloneRange();
+        preCaretRange.selectNodeContents(element);
+        preCaretRange.setEnd(range.endContainer, range.endOffset);
+        caretOffset = preCaretRange.toString().length;
+      }
+    } /* else if ((sel = document.selection) && sel.type !== "Control") {
+      range = sel.createRange();
+      var textRange = document.body.createTextRange();
+      textRange.moveToElementText(element);
+      textRange.setEndPoint("EndToEnd", range);
+      caretOffset = textRange.text.length;
+    } */
+
+    return caretOffset;
+  }
+</script>
+
+</body>
+</html>
