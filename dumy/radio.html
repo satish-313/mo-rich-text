@@ -4,32 +4,174 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>radio</title>
+        <style>
+            :root {
+                --color: #333;
+            }
+            .main {
+                display: grid;
+                grid-template-columns: 3rem auto;
+            }
+            .cnt {
+                display: none;
+                align-items: center;
+            }
+            #radio-form {
+                display: flex;
+            }
+            input {
+                display: none;
+            }
+            input[type="radio"] + label {
+                margin: 1rem;
+                cursor: pointer;
+                line-height: 20px;
+            }
+            input[type="radio"]:checked + label {
+                border: solid green 3px;
+            }
+            #plus {
+                height: 3rem;
+                width: 3rem;
+                border: solid black 1px;
+                border-radius: 50%;
+                position: relative;
+                transition: all 200ms linear;
+            }
+            #plus > :nth-child(1) {
+                height: 3px;
+                width: 2.25rem;
+                background-color: var(--color);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+            }
+            #plus > :nth-child(2) {
+                height: 3px;
+                width: 2.25rem;
+                background-color: var(--color);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%) rotate(90deg);
+            }
+        </style>
     </head>
     <body>
-        <p>Select your age</p>
-        <form id="radio-form">
-            <input type="radio" id="age1" name="age" value="20" />
-            <label for="age1">20</label>
-            <input type="radio" name="age" id="age2" value="30" />
-            <label for="age2">30</label>
-            <input type="radio" id="age3" name="age" value="25" />
-            <label for="age3">25</label>
-            <input type="submit" />
-        </form>
+        <p>Select the type</p>
+        <div class="main">
+            <div id="plus">
+                <div></div>
+                <div></div>
+            </div>
+            <div class="cnt">
+                <form id="radio-form">
+                    <div>
+                        <input
+                            type="radio"
+                            id="header"
+                            name="some-type"
+                            value="header"
+                        />
+                        <label for="header">H</label>
+                    </div>
+                    <div>
+                        <input
+                            type="radio"
+                            id="img"
+                            name="some-type"
+                            value="img"
+                        />
+                        <label for="img">img</label>
+                    </div>
+                    <div>
+                        <input
+                            type="radio"
+                            id="code"
+                            name="some-type"
+                            value="code"
+                        />
+                        <label for="code">code</label>
+                    </div>
+                    <div>
+                        <input
+                            type="radio"
+                            id="linebreak"
+                            name="some-type"
+                            value="break"
+                        />
+                        <label for="linebreak">par</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="content"></div>
     </body>
     <script>
-        let radioform = document.getElementById("radio-form");
-        radioform.addEventListener("submit", function (e) {
-            e.preventDefault();
-            let sv = document.querySelector('input[name="age"]:checked');
-            console.log(sv.value);
-        });
-        var radioButtons = document.querySelectorAll('input[name="age"]');
+        // let radioform = document.getElementById("radio-form");
+        // radioform.addEventListener("submit", function (e) {
+        //     e.preventDefault();
+        //     let sv = document.querySelector('input[name="some-type"]:checked');
+        //     console.log(sv)
+        // });
+        let content = document.querySelector("#content");
+        let cnt = document.querySelector(".cnt")
+        let radioButtons = document.querySelectorAll('input[name="some-type"]');
         radioButtons.forEach(function (radioButton) {
             radioButton.addEventListener("change", function () {
-                // Log the selected value when a radio button changes
-                console.log("Selected Value:", this.value);
+                let child = content.children;
+                for (let i = 0; i < child.length; i++) {
+                    content.removeChild(child[i]);
+                }
+                let newChild;
+                switch (this.value) {
+                    case "header":
+                        newChild = document.createElement("h1");
+                        newChild.setAttribute("contenteditable", "true");
+                        content.appendChild(newChild);
+                        break;
+
+                    case "img":
+                        newChild = document.createElement("img");
+                        newChild.src = "./leetcode.png";
+                        newChild.alt = "phota";
+                        content.appendChild(newChild);
+                        break;
+                    case "code":
+                        newChild = document.createElement("pre");
+                        newChild.setAttribute("contenteditable", "true");
+                        content.appendChild(newChild);
+                        break;
+                    case "break":
+                        newChild = document.createElement("p");
+                        newChild.setAttribute("contenteditable", "true");
+                        content.appendChild(newChild);
+                        break;
+                    default:
+                        newChild = document.createElement("p");
+                        newChild.innerText = "paragraph";
+                        content.appendChild(newChild);
+                        break;
+                }
             });
+        });
+
+        let plus = document.querySelector("#plus");
+        let isRotate = false;
+        plus.addEventListener("click", function () {
+            if (isRotate) {
+                plus.style.transform = `rotate(0deg)`;
+                cnt.style.display = "none"
+            } else {
+                plus.style.transform = `rotate(45deg)`;
+                cnt.style.display = "flex"
+            }
+            isRotate = !isRotate;
         });
     </script>
 </html>
+
+<!-- 
+    let rb = document.querySelector('input[name="some-type"][value="break"]')
+ -->

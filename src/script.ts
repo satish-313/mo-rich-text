@@ -69,6 +69,7 @@ function addInput(parent?: null | HTMLElement, value?: undefined | string) {
 
     p.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
+            e.preventDefault();
             const parEle = this.parentNode as HTMLElement;
             let cursorPosition = getCaretCharacterOffsetWithin(this);
 
@@ -79,7 +80,6 @@ function addInput(parent?: null | HTMLElement, value?: undefined | string) {
             let textAfterCursor = this.textContent!.substring(cursorPosition);
             this.innerHTML = textBeforeCursor;
             addInput(parEle, textAfterCursor);
-            e.preventDefault();
             return;
         }
 
@@ -88,10 +88,12 @@ function addInput(parent?: null | HTMLElement, value?: undefined | string) {
             const prevEle = parEle.previousElementSibling as HTMLElement | null;
             if (prevEle === null) return;
             const prevp = prevEle.querySelector("p")!;
-            if (prevp === null) return;
+
             if (
                 editor.firstElementChild != parEle &&
-                this.innerText.length <= 0
+                (this.innerText.length <= 0 ||
+                    (this.innerText.trim().length === 0 &&
+                        this.innerText.length === 1))
             ) {
                 e.preventDefault();
                 if (prevp.innerText.length !== 0) {
@@ -127,8 +129,6 @@ function addInput(parent?: null | HTMLElement, value?: undefined | string) {
             parent.insertAdjacentElement("afterend", div);
         }
     } else {
-        p.innerHTML =
-            "It is a long established fact t of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to s ";
         editor.appendChild(div);
     }
     p.focus();
