@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="160"
+   height="160.00002"
+   viewBox="0 0 42.333332 42.333336"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-50.615426,-28.208627)">
+    <ellipse
+       style="fill:#eaeaea;stroke:#26ff00;stroke-width:0.507318;stroke-linecap:round"
+       id="path1"
+       cx="71.782089"
+       cy="49.375294"
+       rx="20.913006"
+       ry="20.913008" />
+    <g
+       id="g15"
+       transform="matrix(0.33277401,0,0,0.33277401,28.960281,24.478185)"
+       style="stroke-width:1.59017;stroke-dasharray:none">
+      <g
+         id="g12"
+         transform="translate(2.7946586,11.693924)"
+         style="stroke-width:1.59017;stroke-dasharray:none">
+        <path
+           style="fill:#18f700;fill-opacity:1;stroke:#26ff00;stroke-width:1.59017;stroke-linecap:round;stroke-dasharray:none"
+           d="m 130.50736,33.402738 32.34361,32.343611"
+           id="path11"
+           transform="translate(1.8208262,-2.6234061)" />
+        <path
+           style="fill:#18f700;fill-opacity:1;stroke:#26ff00;stroke-width:1.59017;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           d="m 130.50736,33.402738 32.34361,32.343611"
+           id="path12"
+           transform="matrix(-1,0,0,1,295.17916,29.720205)" />
+      </g>
+      <g
+         id="g11"
+         transform="rotate(180,127.28402,68.969905)"
+         style="stroke-width:1.59017;stroke-dasharray:none">
+        <path
+           style="fill:#18f700;fill-opacity:1;stroke:#26ff00;stroke-width:1.59017;stroke-linecap:round;stroke-dasharray:none"
+           d="m 130.50736,33.402738 32.34361,32.343611"
+           id="path10"
+           transform="translate(1.8208262,-2.6234061)" />
+        <path
+           style="fill:#18f700;fill-opacity:1;stroke:#26ff00;stroke-width:1.59017;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           d="m 130.50736,33.402738 32.34361,32.343611"
+           id="path9"
+           transform="matrix(-1,0,0,1,295.17916,29.720205)" />
+      </g>
+    </g>
+  </g>
+</svg>

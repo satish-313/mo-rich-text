@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="160"
+   height="160.00002"
+   viewBox="0 0 42.333332 42.333336"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-50.615426,-28.208627)">
+    <ellipse
+       style="fill:#eaeaea;stroke:#26ff00;stroke-width:0.507318;stroke-linecap:round"
+       id="path1"
+       cx="71.782089"
+       cy="49.375294"
+       rx="20.913006"
+       ry="20.913008" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6918px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#18f700;fill-opacity:1;stroke:#26ff00;stroke-width:0.43809;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       x="65.023926"
+       y="56.920967"
+       id="text15"
+       transform="scale(1.0148349,0.98538195)"><tspan
+         id="tspan15"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;stroke-width:0.43809"
+         x="65.023926"
+         y="56.920967">T</tspan></text>
+  </g>
+</svg>

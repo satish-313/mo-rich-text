@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="159.99998"
+   height="160"
+   viewBox="0 0 42.333328 42.333332"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-43.458096,-36.819545)">
+    <ellipse
+       style="fill:#eaeaea;stroke:#26ff00;stroke-width:0.507318;stroke-linecap:round"
+       id="path1"
+       cx="64.624763"
+       cy="57.986214"
+       rx="20.913006"
+       ry="20.913008" />
+    <g
+       id="g9"
+       transform="translate(-83.875228,7.1507824)">
+      <g
+         id="g7"
+         transform="translate(26.580286)">
+        <path
+           style="fill:#eaeaea;stroke:#26ff00;stroke-width:0.529;stroke-linecap:round;stroke-dasharray:none"
+           d="M 103.95431,45.469725 H 133.1512"
+           id="path3"
+           transform="translate(3.3669504,-1.5205765)" />
+        <path
+           style="fill:#eaeaea;stroke:#26ff00;stroke-width:0.529;stroke-linecap:round;stroke-dasharray:none"
+           d="M 103.95431,45.469725 H 133.1512"
+           id="path2"
+           transform="translate(3.3669504,12.251989)" />
+      </g>
+      <g
+         id="g8"
+         transform="translate(29.49895,49.903928)">
+        <circle
+           style="fill:#18f700;fill-opacity:1;stroke:#26ff00;stroke-width:0.529167;stroke-linecap:round"
+           id="circle4"
+           cx="116.42999"
+           cy="0.93150306"
+           r="0.66691953" />
+        <circle
+           style="fill:#18f700;fill-opacity:1;stroke:#26ff00;stroke-width:0.529167;stroke-linecap:round"
+           id="circle5"
+           cx="111.28787"
+           cy="0.93150306"
+           r="0.66691953" />
+        <circle
+           style="fill:#18f700;fill-opacity:1;stroke:#26ff00;stroke-width:0.529167;stroke-linecap:round"
+           id="circle6"
+           cx="126.71421"
+           cy="0.93150306"
+           r="0.66691953" />
+        <circle
+           style="fill:#18f700;fill-opacity:1;stroke:#26ff00;stroke-width:0.529167;stroke-linecap:round"
+           id="path4"
+           cx="121.5721"
+           cy="0.93150306"
+           r="0.66691953" />
+      </g>
+    </g>
+  </g>
+</svg>
