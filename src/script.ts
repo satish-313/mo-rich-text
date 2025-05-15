@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-let isRotate = false;
 type MyNode = Node & {
     length: number;
 };
 const imgs = ["photo", "h3", "h4", "list", "code", "embed", "line"];
+let isRotate = false;
 
 let textChange = document.getElementById("dbtn");
 let tcChild = textChange?.children!;
@@ -58,27 +58,28 @@ function addInput(parent?: null | HTMLElement, value?: undefined | string) {
     p.addEventListener("keydown", (e) =>
         keyDown<HTMLParagraphElement, KeyboardEvent>(p, e)
     );
-    p.addEventListener("input", (e) => {
-        if (p.innerText.length === 0) {
-            plus.style.display = "flex";
-        } else {
-            plus.style.display = "none";
-        }
-    });
-    p.addEventListener("focusin", () => {
-        if (p.innerText.length === 0) {
-            plus.style.display = "flex";
-        } else {
-            plus.style.display = "none";
-        }
-    });
-    p.addEventListener("focusout", () => (plus.style.display = "none"));
 
-    plus.addEventListener("click", () => showRadioType(toggle));
+    // p.addEventListener("input", (e) => {
+    //     if (p.innerText.length === 0) {
+    //         plus.style.display = "flex";
+    //     } else {
+    //         plus.style.display = "none";
+    //     }
+    // });
+    // p.addEventListener("focusin", () => {
+    //     if (p.innerText.length === 0) {
+    //         plus.style.display = "flex";
+    //     } else {
+    //         plus.style.display = "none";
+    //     }
+    // });
+    // p.addEventListener("focusout", () => (plus.style.display = "none"));
 
     div.appendChild(toggle);
     div.appendChild(p);
     createHtmltype<HTMLDivElement>(div);
+
+    plus.addEventListener("click", () => showRadioType(toggle, div));
 
     if (parent != null) {
         if (!value) {
@@ -133,13 +134,17 @@ function createHTML<T extends HTMLElement>(htmlString: string) {
     return template.content.firstChild as T;
 }
 
-function showRadioType<T extends HTMLElement>(target: T) {
+function showRadioType<T extends HTMLElement>(target: T, parent: T) {
     let span = target.querySelector("span");
-    if (!span) return;
+    let radio = parent.querySelector(".radio") as HTMLElement;
+
+    if (!span || !radio) return;
     if (isRotate) {
         span.style.transform = `rotate(0deg)`;
+        radio.style.display = "none";
     } else {
         span.style.transform = `rotate(45deg)`;
+        radio.style.display = "flex";
     }
     isRotate = !isRotate;
 }

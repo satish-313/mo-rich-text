@@ -85,13 +85,11 @@ h1 {
     cursor: pointer;
     font-size: 2rem;
     transition: all 200ms linear;
-    display: none;
 }
 
 .radio {
     position: absolute;
     left: calc(2rem + 10px);
-    display: flex;
     display: none;
     gap: 5px;
 }
